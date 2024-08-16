@@ -10,4 +10,30 @@ body {
   margin-right: 10px;
 }
 
-/* Add your own custom styles here */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.book-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book-card h3 {
+  margin: 10px 0 5px;
+}
+
+.book-card p {
+  margin: 5px 0;
+}
