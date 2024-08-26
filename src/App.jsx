@@ -2,9 +2,20 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import bookLogo from './assets/books.png'
 import Books from './components/Books'
+import Login from './components/Login'
 
 function App() {
-  const [token, setToken] = React.useState(null)
+  const [token, setToken] = React.useState(localStorage.getItem('token'));
+
+  const handleSetToken = (newToken) => {
+    setToken(newToken);
+    localStorage.setItem('token', newToken);
+  };
+
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.removeItem('token');
+  };
 
   return (
     <Router>
@@ -16,7 +27,7 @@ function App() {
             {token ? (
               <>
                 <Link to="/account">Account</Link>
-                <button onClick={() => setToken(null)}>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </>
             ) : (
               <>
@@ -28,8 +39,8 @@ function App() {
         </header>
 
         <Routes>
-          <Route path="/" element={<Books />} />
-          <Route path="/login" element={<h2>Login Page</h2>} />
+          <Route path="/" element={<Books token={token} />} />
+          <Route path="/login" element={<Login setToken={handleSetToken} />} />
           <Route path="/register" element={<h2>Register Page</h2>} />
           <Route path="/account" element={<h2>Account Page</h2>} />
         </Routes>

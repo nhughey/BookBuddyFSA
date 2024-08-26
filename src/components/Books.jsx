@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-function Books() {
+function Books({ token }) {
   const [books, setBooks] = useState([])
 
   useEffect(() => {
@@ -27,6 +27,9 @@ function Books() {
             <h3>{book.title}</h3>
             <p>{book.author}</p>
             <Link to={`/books/${book.id}`}>View Details</Link>
+            {token && book.available && (
+              <button>Check Out</button>
+            )}
           </div>
         ))}
       </div>
