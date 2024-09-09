@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import bookLogo from './assets/books.png'
 import Books from './components/Books'
 import Login from './components/Login'
+import Register from './components/Register'
+import Account from './components/Account'
 
 function App() {
   const [token, setToken] = React.useState(localStorage.getItem('token'));
@@ -17,22 +19,76 @@ function App() {
     localStorage.removeItem('token');
   };
 
+  const appStyles = {
+    fontFamily: 'Arial, sans-serif',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '20px',
+  };
+
+  const headerStyles = {
+    backgroundColor: '#f0f0f0',
+    padding: '20px',
+    borderRadius: '8px',
+    marginBottom: '20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
+
+  const h1Styles = {
+    margin: '0',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '24px',
+    color: '#333',
+  };
+
+  const logoStyles = {
+    width: '40px',
+    marginRight: '10px',
+  };
+
+  const navStyles = {
+    display: 'flex',
+    gap: '15px',
+  };
+
+  const linkStyles = {
+    textDecoration: 'none',
+    color: '#007bff',
+    fontWeight: 'bold',
+  };
+
+  const buttonStyles = {
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '8px 16px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '14px',
+  };
+
   return (
     <Router>
-      <div>
-        <header>
-          <h1><img id='logo-image' src={bookLogo} alt="Book Logo"/>Library App</h1>
-          <nav>
-            <Link to="/">Home</Link>
+      <div style={appStyles}>
+        <header style={headerStyles}>
+          <h1 style={h1Styles}>
+            <img id='logo-image' src={bookLogo} alt="Book Logo" style={logoStyles}/>
+            Library App
+          </h1>
+          <nav style={navStyles}>
+            <Link to="/" style={linkStyles}>Home</Link>
             {token ? (
               <>
-                <Link to="/account">Account</Link>
-                <button onClick={handleLogout}>Logout</button>
+                <Link to="/account" style={linkStyles}>Account</Link>
+                <button onClick={handleLogout} style={buttonStyles}>Logout</button>
               </>
             ) : (
               <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
+                <Link to="/login" style={linkStyles}>Login</Link>
+                <Link to="/register" style={linkStyles}>Register</Link>
               </>
             )}
           </nav>
@@ -40,55 +96,9 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Books token={token} />} />
+          <Route path="/books/:id" element={<Books token={token} />} />
           <Route path="/login" element={<Login setToken={handleSetToken} />} />
-          <Route path="/register" element={<h2>Register Page</h2>} />
-          <Route path="/account" element={<h2>Account Page</h2>} />
-        </Routes>
-      </div>
-    </Router>
-  )
-}
-
-export default App
-
-/* import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import bookLogo from './assets/books.png'
-import Books from './components/Books'
-import SingleBook from './components/SingleBook'
-import Login from './components/Login'
-import Register from './components/Register'
-import Account from './components/Account'
-
-function App() {
-  const [token, setToken] = useState(null)
-
-  return (
-    <Router>
-      <div>
-        <header>
-          <h1><img id='logo-image' src={bookLogo} alt="Book Logo"/>Library App</h1>
-          <nav>
-            <Link to="/">Home</Link>
-            {token ? (
-              <>
-                <Link to="/account">Account</Link>
-                <button onClick={() => setToken(null)}>Logout</button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-              </>
-            )}
-          </nav>
-        </header>
-
-        <Routes>
-          <Route path="/" element={<Books token={token} />} />
-          <Route path="/books/:id" element={<SingleBook token={token} />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/register" element={<Register setToken={handleSetToken} />} />
           <Route path="/account" element={<Account token={token} />} />
         </Routes>
       </div>
@@ -96,4 +106,4 @@ function App() {
   )
 }
 
-export default App  */
+export default App
